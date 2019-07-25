@@ -1,3 +1,5 @@
+package main;
+
 import main.constants.Commands;
 import main.exceptions.NoSuchItemException;
 import main.exceptions.PasswordNotMatchingException;
