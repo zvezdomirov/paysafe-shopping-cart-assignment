@@ -1,1 +1,6 @@
-# paysafe-shopping-cart-task
+# Shopping Cart Application *(Command Line)*
+
+## Available commands:
+
+- `register *username* *password*`
+
