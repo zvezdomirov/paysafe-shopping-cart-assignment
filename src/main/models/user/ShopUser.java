@@ -1,15 +1,14 @@
-package main;
+package main.models.user;
+
+import main.exceptions.NoSuchItemException;
+import main.models.shop.ShopItem;
+import main.models.shop.ShoppingCart;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 public class ShopUser extends OnlineUser{
-    /*In production environment I would put the currency
-    * in an enum and make it dynamically change, according
-    * to the user's preference, but since that's not the
-    * purpose of the task, I just hardcoded "BGN"*/
     private static final String CHECKOUT_MESSAGE_TEMPLATE
-            = "Thank you for shopping here!\nYour bill has a total of %s BGN";
+            = "Thank you for shopping here!\nYour bill has a total of %s";
     private ShoppingCart cart;
 
     public ShopUser(String username, String password, ShoppingCart cart) {
@@ -18,7 +17,7 @@ public class ShopUser extends OnlineUser{
     }
 
     public void addToCart(ShopItem item,
-                          Integer quantity) {
+                          Integer quantity) throws NoSuchItemException {
         cart.addItem(item, quantity);
     }
 

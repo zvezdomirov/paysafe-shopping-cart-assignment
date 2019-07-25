@@ -1,4 +1,4 @@
-package main;
+package main.models.user;
 
 import java.util.Objects;
 
@@ -42,7 +42,7 @@ public class OnlineUser {
 
     @Override
     public String toString() {
-        return "main.OnlineUser{" +
+        return "main.models.user.OnlineUser{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';

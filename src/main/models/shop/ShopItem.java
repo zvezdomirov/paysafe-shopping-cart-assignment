@@ -1,4 +1,4 @@
-package main;
+package main.models.shop;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -56,7 +56,7 @@ public class ShopItem implements Cloneable{
     }
 
     @Override
-    protected ShopItem clone() throws CloneNotSupportedException {
+    protected ShopItem clone() {
         return new ShopItem(this.name, this.price);
     }
 

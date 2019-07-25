@@ -1,7 +1,8 @@
-package main;
+package main.models.shop;
+
+import main.exceptions.NoSuchItemException;
 
 import java.math.BigDecimal;
-import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -17,8 +18,13 @@ public class ShoppingCart {
     }
 
     public void addItem(ShopItem item,
-                        Integer quantity) {
-        Integer quantityAfterAdd = quantity
+                        Integer quantity) throws NoSuchItemException {
+        if (item == null) {
+            throw new NoSuchItemException(
+                    "Item is not available in the list"
+            );
+        }
+        int quantityAfterAdd = quantity
                 + Optional
                 .ofNullable(cartContent.get(item))
                 .orElse(0);
@@ -29,7 +35,7 @@ public class ShoppingCart {
 
     public boolean removeItem(ShopItem item,
                               Integer quantity) {
-        Integer quantityAfterRemove = Optional
+        int quantityAfterRemove = Optional
                 .ofNullable(cartContent.get(item))
                 .orElse(0) - quantity;
         if (quantityAfterRemove < 0) {
@@ -48,6 +54,8 @@ public class ShoppingCart {
                 .forEach((k, v) -> result.append(
                         String.format("%s x %d\n",
                                 k.toString(), v)));
+        result.append("Total Price: ")
+                .append(totalPrice.toString());
         return result.toString();
     }
 

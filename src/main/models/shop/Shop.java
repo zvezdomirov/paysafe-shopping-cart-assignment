@@ -1,5 +1,10 @@
-package main;
+package main.models.shop;
 
+import main.exceptions.PasswordNotMatchingException;
+import main.exceptions.UserNotRegisteredException;
+import main.models.user.ShopUser;
+
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -14,16 +19,31 @@ public class Shop {
         users = new HashMap<>();
         initialItems
                 .forEach(it -> itemsAvailable.put(it.getId(), it));
-    }
 
-    public ShopUser registerUser(String username, String password) {
-        ShopUser user = new ShopUser(username, password, new ShoppingCart());
-        users.put(username, user);
-        return user;
     }
 
     public ShopItem getItem(Integer itemId) {
         return itemsAvailable.get(itemId);
+    }
+
+    public static List<ShopItem> generateRandomItemList() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        final int ITEM_LIMIT = 10;
+        final int PRICE_LIMIT = 10;
+        List<ShopItem> result = new ArrayList<>();
+
+        //Generate random whole number from 1 to ITEM_LIMIT
+        long randItemCount = Math.round(
+                Math.random() * ITEM_LIMIT + 1);
+        for (long i = 0; i < randItemCount; i++) {
+            double randPrice
+                    = Math.random() * PRICE_LIMIT + 1;
+            ShopItem current = ShopItem.class
+                    .getConstructor(String.class, BigDecimal.class)
+                    .newInstance("Item " + i,
+                            BigDecimal.valueOf(randPrice));
+            result.add(current);
+        }
+        return result;
     }
 
     public String listAvailableItems() {
@@ -43,9 +63,14 @@ public class Shop {
         try {
             user = getUser(username, password);
         } catch (UserNotRegisteredException e) {
-            user = registerUser(username, password);
+            registerUser(username, password);
         }
         return user;
+    }
+
+    public void registerUser(String username, String password) {
+        ShopUser user = new ShopUser(username, password, new ShoppingCart());
+        users.put(username, user);
     }
 
     private ShopUser getUser(String username,
@@ -54,9 +79,14 @@ public class Shop {
                     PasswordNotMatchingException {
         ShopUser user = users.get(username);
         if (user == null) {
-            throw new UserNotRegisteredException();
+            throw new UserNotRegisteredException(
+                            "User: " + username
+                            + " is not registered"
+            );
         } else if (!user.getPassword().equals(password)){
-            throw new PasswordNotMatchingException();
+            throw new PasswordNotMatchingException(
+                    "Password mismatch for username: " + username
+            );
         } else {
             return user;
         }
