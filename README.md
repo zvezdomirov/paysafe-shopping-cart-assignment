@@ -24,8 +24,4 @@
     and total price of the shopping cart's content
     
 - `checkout`
-  - Finalizes your shopping session
-            :arrow_down:
-  - Empties the shopping cart
-            :arrow_down:
-  - Terminates the program
+  - Finalizes your shopping session -> Empties the shopping cart -> Terminates the program
