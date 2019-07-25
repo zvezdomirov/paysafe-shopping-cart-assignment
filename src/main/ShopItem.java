@@ -11,14 +11,11 @@ public class ShopItem implements Cloneable{
     private String name;
     private BigDecimal price;
 
-    private Integer quantity;
-
-    public ShopItem(String name, BigDecimal price, Integer quantity) {
+    public ShopItem(String name, BigDecimal price) {
         this.id = currentGeneratedId;
         currentGeneratedId++;
         this.setName(name);
         this.setPrice(price);
-        this.setQuantity(quantity);
     }
 
     public Integer getId() {
@@ -45,14 +42,6 @@ public class ShopItem implements Cloneable{
         this.price = price.setScale(2, RoundingMode.CEILING);
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -68,7 +57,7 @@ public class ShopItem implements Cloneable{
 
     @Override
     protected ShopItem clone() throws CloneNotSupportedException {
-        return new ShopItem(this.name, this.price, quantity);
+        return new ShopItem(this.name, this.price);
     }
 
     @Override
@@ -77,7 +66,6 @@ public class ShopItem implements Cloneable{
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", quantity=" + quantity +
                 '}';
     }
 }
