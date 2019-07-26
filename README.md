@@ -52,7 +52,7 @@ add 1 5
 review
 ShopItem{id=1, name='Item 1', price=7.74} x 5
 ShopItem{id=3, name='Item 3', price=6.51} x 7
-Total Price: 38.70*
+Total Price: 38.70
 remove 1 3
 checkout
 Thank you for shopping here!
